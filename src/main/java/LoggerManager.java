@@ -1,7 +1,11 @@
 package LoggerManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import java.io.File;
+import java.io.IOException;
 
 import LoggerManager.Configuration.LoggerProfile;
 import LoggerManager.Exception.*;
@@ -23,7 +27,15 @@ public class LoggerManager {
                 filePaths.add(expressionConfiguration.filePath);
                 loggerExpressions.put(c, expressionConfiguration.CreateLoggerExpression());
             }
-        }   
+        }
+        filePaths.forEach(filePath -> {
+            try {
+                File file = new File(filePath);
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new CreateLogFileException(filePath);
+            }
+        });
     }
 
     public <T> void log(T data) {

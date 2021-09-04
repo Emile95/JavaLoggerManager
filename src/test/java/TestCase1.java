@@ -64,6 +64,15 @@ class Profile2 extends LoggerProfile {
     }
 }
 
+class ProfileWithWrongFilePath extends LoggerProfile {
+    public ProfileWithWrongFilePath() {
+        createLogger(LogEntry.class)
+            .forFilePath("asdasdasdasdasd\\log.log")
+            .forEntryDateFormat(new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z"))
+            .forEntry(o -> o.type + " : " + o.msg);
+    }
+}
+
 public class TestCase1 {
     @Test                                               
     @DisplayName("Create LoggerManager with 1 Profile")   
@@ -114,6 +123,20 @@ public class TestCase1 {
         } catch(DuplicateFilePathException e) {} 
         catch(Exception e) {
             throw new RuntimeException("DuplicateFilePathException not throwed");
+        }
+    }
+
+    @Test                                               
+    @DisplayName("Create LoggerManager with wrong file path")   
+    void CreateLoggerManager5() {
+        try {
+            LoggerManager loggerManager = new LoggerManagerConfiguration((config) -> {
+                config.addProfile(new ProfileWithWrongFilePath());
+            }).createLoggerManager();
+            throw new RuntimeException("CreateLogFileException not throwed");
+        } catch(CreateLogFileException e) {} 
+        catch(Exception e) {
+            throw new RuntimeException("CreateLogFileException not throwed");
         }
     }
 }
