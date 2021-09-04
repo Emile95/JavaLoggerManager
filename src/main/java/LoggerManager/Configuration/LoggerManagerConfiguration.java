@@ -2,10 +2,10 @@ package LoggerManager.Configuration;
 
 import java.util.ArrayList;
 
-public class LoggerManagerConfigurationExpression {
-    ArrayList<LoggerProfile> profiles;
+public class LoggerManagerConfiguration {
+    public ArrayList<LoggerProfile> profiles;
     
-    public LoggerManagerConfigurationExpression() {
+    public LoggerManagerConfiguration() {
         profiles = new ArrayList<LoggerProfile>();
     }
 

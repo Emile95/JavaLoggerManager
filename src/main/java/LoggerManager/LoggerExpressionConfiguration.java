@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public class LoggerExpressionConfiguration<T> {
     
-    String filePath;
+    public String filePath;
     private DateFormat entryDateFormat;
     private Function<T,String> entryExpression;
 
@@ -33,7 +33,7 @@ public class LoggerExpressionConfiguration<T> {
         return this;
     }
     
-    LoggerExpression<T> CreateLoggerExpression() {
+    public LoggerExpression<T> createLoggerExpression() {
         return new LoggerExpression<T>(filePath,entryDateFormat,entryExpression);
     }
 }

@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import java.text.SimpleDateFormat;
 import java.lang.RuntimeException;
 
+import LoggerManager.LoggerManager;
 import LoggerManager.Configuration.*;
 import LoggerManager.Exception.*;
-import LoggerManager.LoggerManager;
 
 class LogEntry {
     public String type;
@@ -77,9 +77,9 @@ public class TestCase1 {
     @Test                                               
     @DisplayName("Create LoggerManager with 1 Profile")   
     void CreateLoggerManager1() {
-        LoggerManager loggerManager = new LoggerManagerConfiguration((config) -> {
+        LoggerManager loggerManager = new LoggerManager((config) -> {
             config.addProfile(new Profile());
-        }).createLoggerManager();
+        });
 
         loggerManager.log(new LogEntry("Normal", "CreateLoggerManager1"));
     }
@@ -87,10 +87,10 @@ public class TestCase1 {
     @Test                                               
     @DisplayName("Create LoggerManager with 2 Profile")   
     void CreateLoggerManager2() {
-        LoggerManager loggerManager = new LoggerManagerConfiguration((config) -> {
+        LoggerManager loggerManager = new LoggerManager((config) -> {
             config.addProfile(new Profile());
             config.addProfile(new Profile2());
-        }).createLoggerManager();
+        });
 
         loggerManager.log(new LogEntry("Normal", "CreateLogManager2"));
         loggerManager.log(new LogEntry2(1, "CreateLoggerManager2"));
@@ -100,10 +100,10 @@ public class TestCase1 {
     @DisplayName("Create LoggerManager with 2 same class")   
     void CreateLoggerManager3() {
         try {
-            LoggerManager loggerManager = new LoggerManagerConfiguration((config) -> {
+            LoggerManager loggerManager = new LoggerManager((config) -> {
                 config.addProfile(new Profile());
                 config.addProfile(new ProfileCopy());
-            }).createLoggerManager();
+            });
             throw new RuntimeException("DuplicateTypeException not throwed");
         } catch(DuplicateTypeException e) {} 
         catch(Exception e) {
@@ -115,10 +115,10 @@ public class TestCase1 {
     @DisplayName("Create LoggerManager with 2 same filePath")   
     void CreateLoggerManager4() {
         try {
-            LoggerManager loggerManager = new LoggerManagerConfiguration((config) -> {
+            LoggerManager loggerManager = new LoggerManager((config) -> {
                 config.addProfile(new Profile());
                 config.addProfile(new ProfileSameFilePath());
-            }).createLoggerManager();
+            });
             throw new RuntimeException("DuplicateFilePathException not throwed");
         } catch(DuplicateFilePathException e) {} 
         catch(Exception e) {
@@ -130,9 +130,9 @@ public class TestCase1 {
     @DisplayName("Create LoggerManager with wrong file path")   
     void CreateLoggerManager5() {
         try {
-            LoggerManager loggerManager = new LoggerManagerConfiguration((config) -> {
+            LoggerManager loggerManager = new LoggerManager((config) -> {
                 config.addProfile(new ProfileWithWrongFilePath());
-            }).createLoggerManager();
+            });
             throw new RuntimeException("CreateLogFileException not throwed");
         } catch(CreateLogFileException e) {} 
         catch(Exception e) {

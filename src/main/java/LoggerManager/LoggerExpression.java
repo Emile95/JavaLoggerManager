@@ -18,15 +18,12 @@ public class LoggerExpression<T> {
         this.entryExpression = entryExpression;
     }
 
-    void log(T data) {
+    public void log(T data) {
         Time time = new Time(System.currentTimeMillis());
         try {
             FileWriter myWriter = new FileWriter(filePath, true);
             myWriter.write(entryDateFormat.format(time) + " - " + entryExpression.apply(data) + "\n");
             myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        } catch (IOException e) {}
     }
 }

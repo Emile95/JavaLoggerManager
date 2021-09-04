@@ -3,21 +3,22 @@ package LoggerManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import java.io.File;
+import java.util.function.Consumer;
 import java.io.IOException;
 
-import LoggerManager.Configuration.LoggerProfile;
 import LoggerManager.Exception.*;
+import LoggerManager.Configuration.*;
 
 public class LoggerManager {
     private HashMap<Class<?>,LoggerExpression<?>> loggerExpressions;
 
-    public LoggerManager(ArrayList<LoggerProfile> profiles) {
+    public LoggerManager(Consumer<LoggerManagerConfiguration> consumer) {
         loggerExpressions = new HashMap<Class<?>,LoggerExpression<?>>();
+        LoggerManagerConfiguration config = new LoggerManagerConfiguration();
+        consumer.accept(config);
 
         ArrayList<String> filePaths = new ArrayList<String>();
-        for(LoggerProfile profile : profiles) {
+        for(LoggerProfile profile : config.profiles) {
             for(LoggerExpressionConfiguration<?> expressionConfiguration : profile.loggerExpressionConfigurations){
                 Class<?> c = expressionConfiguration.getType();
                 if(loggerExpressions.containsKey(c))
@@ -25,7 +26,7 @@ public class LoggerManager {
                 if(filePaths.contains(expressionConfiguration.filePath))
                     throw new DuplicateFilePathException(expressionConfiguration.filePath);
                 filePaths.add(expressionConfiguration.filePath);
-                loggerExpressions.put(c, expressionConfiguration.CreateLoggerExpression());
+                loggerExpressions.put(c, expressionConfiguration.createLoggerExpression());
             }
         }
         filePaths.forEach(filePath -> {
