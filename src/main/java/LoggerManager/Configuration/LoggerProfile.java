@@ -1,8 +1,8 @@
-package LoggerManager.Configuration;
+package loggerManager.configuration;
 
 import java.util.ArrayList;
 
-import LoggerManager.LoggerExpressionConfiguration;
+import loggerManager.LoggerExpressionConfiguration;
 
 public class LoggerProfile {
     public ArrayList<LoggerExpressionConfiguration<?>> loggerExpressionConfigurations;

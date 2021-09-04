@@ -1,13 +1,14 @@
-package LoggerManager;
+package loggerManager;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
-import java.io.IOException;
 
-import LoggerManager.Exception.*;
-import LoggerManager.Configuration.*;
+import loggerManager.configuration.*;
+import loggerManager.exception.*;
+
+import java.io.IOException;
 
 public class LoggerManager {
     private HashMap<Class<?>,LoggerExpression<?>> loggerExpressions;

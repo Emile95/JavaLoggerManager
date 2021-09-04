@@ -1,4 +1,4 @@
-package LoggerManager.Exception;
+package loggerManager.exception;
 
 import java.lang.RuntimeException;
 

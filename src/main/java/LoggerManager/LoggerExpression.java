@@ -1,4 +1,4 @@
-package LoggerManager;
+package loggerManager;
 
 import java.io.FileWriter;
 import java.io.IOException;

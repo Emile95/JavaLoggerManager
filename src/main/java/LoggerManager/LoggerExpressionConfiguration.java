@@ -1,4 +1,4 @@
-package LoggerManager;
+package loggerManager;
 
 import java.text.DateFormat;
 import java.util.function.Function;

@@ -1,4 +1,4 @@
-package LoggerManager.Configuration;
+package loggerManager.configuration;
 
 import java.util.ArrayList;
 
