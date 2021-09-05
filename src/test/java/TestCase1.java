@@ -2,7 +2,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import loggerManager.LoggerManager;
-import loggerManager.configuration.*;
+import loggerManager.LoggerProfile;
 import loggerManager.exception.*;
 
 import java.text.SimpleDateFormat;

@@ -5,16 +5,12 @@ import java.util.function.Function;
 
 public class LoggerExpressionConfiguration<T> {
     
-    public String filePath;
-    private DateFormat entryDateFormat;
-    private Function<T,String> entryExpression;
+    String filePath;
+    DateFormat entryDateFormat;
+    Function<T,String> entryExpression;
+    Class<T> type;
 
-    private Class<T> type;
-    public Class<T> getType() {
-        return this.type;
-    }
-
-    public LoggerExpressionConfiguration(Class<T> type) {
+    LoggerExpressionConfiguration(Class<T> type) {
         this.type = type;
     }
 
@@ -32,8 +28,8 @@ public class LoggerExpressionConfiguration<T> {
         this.entryExpression = entryExpression;
         return this;
     }
-    
-    public LoggerExpression<T> createLoggerExpression() {
-        return new LoggerExpression<T>(filePath,entryDateFormat,entryExpression);
+
+    LoggerExpression<T> createLoggerExpression() {
+        return new LoggerExpression<>(filePath, entryDateFormat, entryExpression);
     }
 }

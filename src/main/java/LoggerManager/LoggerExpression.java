@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.util.function.Function;
 
-public class LoggerExpression<T> {
+class LoggerExpression<T> {
 
     private String filePath;
     private DateFormat entryDateFormat;
@@ -18,7 +18,7 @@ public class LoggerExpression<T> {
         this.entryExpression = entryExpression;
     }
 
-    public void log(T data) {
+    void log(T data) {
         Time time = new Time(System.currentTimeMillis());
         try {
             FileWriter myWriter = new FileWriter(filePath, true);

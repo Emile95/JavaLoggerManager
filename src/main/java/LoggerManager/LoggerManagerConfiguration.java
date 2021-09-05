@@ -1,11 +1,11 @@
-package loggerManager.configuration;
+package loggerManager;
 
 import java.util.ArrayList;
 
 public class LoggerManagerConfiguration {
-    public ArrayList<LoggerProfile> profiles;
+    ArrayList<LoggerProfile> profiles;
     
-    public LoggerManagerConfiguration() {
+    LoggerManagerConfiguration() {
         profiles = new ArrayList<LoggerProfile>();
     }
 

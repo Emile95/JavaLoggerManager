@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import loggerManager.configuration.*;
 import loggerManager.exception.*;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class LoggerManager {
         ArrayList<String> filePaths = new ArrayList<String>();
         for(LoggerProfile profile : config.profiles) {
             for(LoggerExpressionConfiguration<?> expressionConfiguration : profile.loggerExpressionConfigurations){
-                Class<?> c = expressionConfiguration.getType();
+                Class<?> c = expressionConfiguration.type;
                 if(loggerExpressions.containsKey(c))
                     throw new DuplicateTypeException(c);
                 if(filePaths.contains(expressionConfiguration.filePath))
