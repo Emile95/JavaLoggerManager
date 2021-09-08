@@ -39,6 +39,10 @@ public class LoggerManager {
         });
     }
 
+    /**
+     * Create a new entry line into a log file depending of the type of your object
+     * @param data Your object used to create the entry line
+    */
     public <T> void log(T data) {
         LoggerExpression<T> loggerExpression = (LoggerExpression<T>)(loggerExpressions.get(data.getClass()));
         loggerExpression.log(data);
