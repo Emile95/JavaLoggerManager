@@ -44,6 +44,8 @@ public class LoggerManager {
      * @param data Your object used to create the entry line
     */
     public <T> void log(T data) {
+        if(!loggerExpressions.containsKey(data.getClass()))
+            throw new NotMappedTypeException(data.getClass());
         LoggerExpression<T> loggerExpression = (LoggerExpression<T>)(loggerExpressions.get(data.getClass()));
         loggerExpression.log(data);
     }

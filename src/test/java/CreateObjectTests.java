@@ -40,5 +40,16 @@ public class CreateObjectTests {
             });
         } catch(CreateLogFileException e) { }
     }
+
+    @Test                                               
+    @DisplayName("Catch not mapped type Exception ")   
+    void catchNotMappedTypeException() throws Exception {
+        try {
+            LoggerManager loggerManager = new LoggerManager((config) -> {
+                config.addProfile(new Profile());
+            });
+            loggerManager.log(5);
+        } catch(NotMappedTypeException e) { }
+    }
 }
 
