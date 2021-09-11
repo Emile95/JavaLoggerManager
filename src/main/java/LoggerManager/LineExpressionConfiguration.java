@@ -3,13 +3,15 @@ package loggerManager;
 import java.util.ArrayList;
 import java.util.function.Function;
 
+import loggerManager.interaces.LogFunctionContext;
+
 public class LineExpressionConfiguration<Data> {
     
-    Function<Data,String> valueExpression;
-    ArrayList<Function<Data,String>> tabValueExpressions;
+    LogFunctionContext<Data,String> valueExpression;
+    ArrayList<LogFunctionContext<Data,String>> tabValueExpressions;
 
     LineExpressionConfiguration() {
-        tabValueExpressions = new ArrayList<Function<Data,String>>();
+        tabValueExpressions = new ArrayList<LogFunctionContext<Data,String>>();
     }
 
     /**
@@ -17,17 +19,17 @@ public class LineExpressionConfiguration<Data> {
      * @param valueExpression value expression for the line
      * @return LineExpressionConfiguration to continue configuration
     */
-    public LineExpressionConfiguration<Data> forValue(Function<Data,String> valueExpression) {
+    public LineExpressionConfiguration<Data> forValue(LogFunctionContext<Data,String> valueExpression) {
         this.valueExpression = valueExpression;
         return this;
     }
 
     /**
      * Define the tab value expression
-     * @param valueExpression value expression for the tab
+     * @param tabValueExpression value expression for the tab
      * @return LineExpressionConfiguration to continue configuration
     */
-    public LineExpressionConfiguration<Data> forTab(Function<Data,String> tabValueExpression) {
+    public LineExpressionConfiguration<Data> forTab(LogFunctionContext<Data,String> tabValueExpression) {
         this.tabValueExpressions.add(tabValueExpression);
         return this;
     }

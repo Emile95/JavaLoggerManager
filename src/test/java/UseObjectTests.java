@@ -6,7 +6,7 @@ import loggerManager.LoggerProfile;
 
 public class UseObjectTests {
     @Test                                               
-    @DisplayName("Catch duplicate Type Exception ")   
+    @DisplayName("Log an new entry")   
     void catchDuplicateTypeException() throws Exception {
         LoggerManager loggerManager = new LoggerManager((config) -> {
             config.addProfile(new Profile());

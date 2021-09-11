@@ -3,20 +3,22 @@ package loggerManager;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-class LineExpression<Data> {
-    Function<Data,String> valueExpression;
-    ArrayList<Function<Data,String>> tabValueExpressions;
+import loggerManager.interaces.LogFunctionContext;
 
-    LineExpression(Function<Data,String> valueExpression, ArrayList<Function<Data,String>> tabValueExpressions) {
+class LineExpression<Data> {
+    LogFunctionContext<Data,String> valueExpression;
+    ArrayList<LogFunctionContext<Data,String>> tabValueExpressions;
+
+    LineExpression(LogFunctionContext<Data,String> valueExpression, ArrayList<LogFunctionContext<Data,String>> tabValueExpressions) {
         this.valueExpression = valueExpression;
         this.tabValueExpressions = tabValueExpressions;
     }
 
-    String createLine(Data data) {
-        if(valueExpression != null) return valueExpression.apply(data);
+    String createLine(Data data, LogContext context) {
+        if(valueExpression != null) return valueExpression.apply(data,context);
         String line = "";
-        for(Function<Data,String> tabValueExpression : tabValueExpressions)
-            line += tabValueExpression.apply(data) + "\t";
+        for(LogFunctionContext<Data,String> tabValueExpression : tabValueExpressions)
+            line += tabValueExpression.apply(data,context) + "\t";
         return line;
     }
 }

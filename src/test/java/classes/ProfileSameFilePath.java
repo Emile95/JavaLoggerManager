@@ -8,7 +8,7 @@ class ProfileSameFilePath extends LoggerProfile {
             .forFilePath("log.log")
             .forEntryDateFormat(new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z"))
             .forLine(line -> {
-                line.forValue(data -> "line 1 : + " + Integer.toString(data));
+                line.forValue((data,context) -> "line 1 : + " + Integer.toString(data));
             });
     }
 }
