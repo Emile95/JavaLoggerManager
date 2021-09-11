@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import loggerManager.exception.*;
+import loggerManager.exceptions.*;
 
 import java.io.IOException;
 

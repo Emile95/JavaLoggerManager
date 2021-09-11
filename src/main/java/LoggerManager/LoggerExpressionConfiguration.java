@@ -1,16 +1,19 @@
 package loggerManager;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class LoggerExpressionConfiguration<T> {
+public class LoggerExpressionConfiguration<Data> {
     
     String filePath;
     DateFormat entryDateFormat;
-    Function<T,String> entryExpression;
-    Class<T> type;
+    private ArrayList<LineExpression<Data>> lineExpressions;
+    Class<Data> type;
 
-    LoggerExpressionConfiguration(Class<T> type) {
+    LoggerExpressionConfiguration(Class<Data> type) {
+        lineExpressions = new ArrayList<LineExpression<Data>>();
         this.type = type;
     }
 
@@ -19,7 +22,7 @@ public class LoggerExpressionConfiguration<T> {
      * @param filePath Path of the file
      * @return LoggerExpressionConfiguration to continue configuration
     */
-    public LoggerExpressionConfiguration<T> forFilePath(String filePath) {
+    public LoggerExpressionConfiguration<Data> forFilePath(String filePath) {
         this.filePath = filePath;
         return this;
     }
@@ -29,7 +32,7 @@ public class LoggerExpressionConfiguration<T> {
      * @param entryDateFormat Date format for each entry
      * @return LoggerExpressionConfiguration to continue configuration
     */
-    public LoggerExpressionConfiguration<T> forEntryDateFormat(DateFormat entryDateFormat) {
+    public LoggerExpressionConfiguration<Data> forEntryDateFormat(DateFormat entryDateFormat) {
         this.entryDateFormat = entryDateFormat;
         return this;
     }
@@ -39,12 +42,14 @@ public class LoggerExpressionConfiguration<T> {
      * @param entryExpression Expression who create the entry line
      * @return LoggerExpressionConfiguration to continue configuration
     */
-    public LoggerExpressionConfiguration<T> forEntry(Function<T,String> entryExpression) {
-        this.entryExpression = entryExpression;
+    public LoggerExpressionConfiguration<Data> forLine(Consumer<LineExpressionConfiguration<Data>> consumer) {
+        LineExpressionConfiguration<Data> config = new LineExpressionConfiguration<Data>();
+        consumer.accept(config);
+        lineExpressions.add(config.createLineExpression());
         return this;
     }
 
-    LoggerExpression<T> createLoggerExpression() {
-        return new LoggerExpression<>(filePath, entryDateFormat, entryExpression);
+    LoggerExpression<Data> createLoggerExpression() {
+        return new LoggerExpression<Data>(filePath, entryDateFormat, lineExpressions);
     }
 }

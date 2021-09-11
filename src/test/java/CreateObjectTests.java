@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import loggerManager.LoggerManager;
 import loggerManager.LoggerProfile;
-import loggerManager.exception.*;
+import loggerManager.exceptions.*;
 
 import java.text.SimpleDateFormat;
 import java.lang.RuntimeException;

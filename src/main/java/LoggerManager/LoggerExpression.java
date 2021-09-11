@@ -4,25 +4,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.function.Function;
 
-class LoggerExpression<T> {
+import javax.xml.crypto.Data;
+
+class LoggerExpression<Data> {
 
     private String filePath;
     private DateFormat entryDateFormat;
-    private Function<T,String> entryExpression;
+    private ArrayList<LineExpression<Data>> lineExpressions;
 
-    LoggerExpression(String filePath, DateFormat entryDateFormat, Function<T,String> entryExpression) {
+    LoggerExpression(String filePath, DateFormat entryDateFormat, ArrayList<LineExpression<Data>> lineExpressions) {
         this.filePath = filePath;
         this.entryDateFormat = entryDateFormat;
-        this.entryExpression = entryExpression;
+        this.lineExpressions = lineExpressions;
     }
 
-    void log(T data) {
+    void log(Data data) {
         Time time = new Time(System.currentTimeMillis());
         try {
             FileWriter myWriter = new FileWriter(filePath, true);
-            myWriter.write(entryDateFormat.format(time) + " - " + entryExpression.apply(data) + "\n");
+            for(LineExpression<Data> lineExpression : lineExpressions) 
+                myWriter.write(lineExpression.createLine(data) + "\n");
             myWriter.close();
         } catch (IOException e) {}
     }

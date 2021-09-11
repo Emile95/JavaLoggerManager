@@ -7,7 +7,9 @@ class ProfileWrongPath extends LoggerProfile {
         createLogger(Integer.class)
             .forFilePath("\\sdfsdfsdf\\sdfsdfsdfsdf\\1og.log")
             .forEntryDateFormat(new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z"))
-            .forEntry(o -> Integer.toString(o));
+            .forLine(line -> {
+                line.forValue(data -> "line 1 : + " + Integer.toString(data));
+            });
     }
 }
 

@@ -1,4 +1,4 @@
-package loggerManager.exception;
+package loggerManager.exceptions;
 
 public class NotMappedTypeException extends RuntimeException{
     private Class<?> type;
