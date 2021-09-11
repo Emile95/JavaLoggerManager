@@ -14,11 +14,11 @@ class LineExpression<Data> {
         this.tabValueExpressions = tabValueExpressions;
     }
 
-    String createLine(Data data, LogContext context) {
-        if(valueExpression != null) return valueExpression.apply(data,context);
-        String line = "";
+    String createLine(Data data, LogContext context, String begin, String end) {
+        if(valueExpression != null) return begin+valueExpression.apply(data,context)+end;
+        String line = begin;
         for(LogFunctionContext<Data,String> tabValueExpression : tabValueExpressions)
-            line += tabValueExpression.apply(data,context) + "\t";
-        return line;
+            line += tabValueExpression.apply(data,context);
+        return line + end + "\t";
     }
 }

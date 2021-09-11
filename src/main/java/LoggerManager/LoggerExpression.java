@@ -15,15 +15,21 @@ import java.util.stream.Stream;
 
 import javax.xml.crypto.Data;
 
+import loggerManager.interaces.LogFunctionContext;
+
 class LoggerExpression<Data> {
 
     private String filePath;
     private ArrayList<LineExpression<Data>> lineExpressions;
+    private LogFunctionContext<Data, String> beginLineExpression;
+    private LogFunctionContext<Data, String> endLineExpression;
     private LogContext context;
 
-    LoggerExpression(String filePath, DateFormat entryDateFormat, ArrayList<LineExpression<Data>> lineExpressions) {
+    LoggerExpression(String filePath, DateFormat entryDateFormat, ArrayList<LineExpression<Data>> lineExpressions, LogFunctionContext<Data, String> beginLineExpression, LogFunctionContext<Data, String> endLineExpression) {
         this.filePath = filePath;
         this.lineExpressions = lineExpressions;
+        this.beginLineExpression = beginLineExpression;
+        this.endLineExpression = endLineExpression;
         int lineCount = 0;
         try {
             LineNumberReader reader = new LineNumberReader(new FileReader(filePath));
@@ -36,10 +42,13 @@ class LoggerExpression<Data> {
 
     void log(Data data) {
         Time time = new Time(System.currentTimeMillis());
+        String begin; String end;
         try {
             FileWriter myWriter = new FileWriter(filePath, true);
             for(LineExpression<Data> lineExpression : lineExpressions) {
-                myWriter.write(lineExpression.createLine(data,context) + "\n");
+                begin = beginLineExpression == null ? null : beginLineExpression.apply(data, context);
+                end = endLineExpression == null ? "" : endLineExpression.apply(data, context);
+                myWriter.write(lineExpression.createLine(data,context,begin,end)+"\n");
                 context.incrementCurrentIndex();
             }  
             myWriter.close();
